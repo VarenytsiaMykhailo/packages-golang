@@ -45,10 +45,24 @@ func RoundingFloat64ToInt32(x float64) int {
 /*
 Среднее арифметическое произвольного количества чисел типа float64.
 */
-func AverageFloat64(xs... float64) float64 {
+func AverageFloat64(numbers... float64) float64 {
 	total := float64(0)
-	for _, x := range xs {
+	for _, x := range numbers {
 		total += x
 	}
-	return total / float64(len(xs))
+	return total / float64(len(numbers))
+}
+
+/*
+Вычисляет медиану последовательности чисел: если их нечетное количество - возвращается значение серединного элемента последовательности.
+Если их четное количество - возвращается среднее арифметическое двух серединных элементов последовательности.
+Функция Median не сортирует передаваемую последовательность. Если вам нужен результат медианы отсортированной последовательности - передавайте в функцию заранее отсортированный слайс
+*/
+func Median(numbers []float64) float64 {
+	middle := len(numbers) / 2
+	result := numbers[middle]
+	if len(numbers)%2 == 0 {
+		result = (result + numbers[middle-1]) / 2
+	}
+	return result
 }
